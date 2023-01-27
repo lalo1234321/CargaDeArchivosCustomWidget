@@ -15830,7 +15830,11 @@
                           var myfileFragmented = t.name.split('.');
                           console.log("primera parte: "+ myfileFragmented[0]);
                           console.log("Segunda parte: "+myfileFragmented[1]);
-                          myfileFragmented[0] += "dummyText";
+                          //En este punto se deberá obtener document.getElementById()
+                          var hiddenTag = document.getElementById("myCustomAttachment");
+                          
+                          console.log("Obtener el titulo: "+hiddenTag.innerHTML);
+                          myfileFragmented[0] += hiddenTag.innerHTML;
                           var myNewFileModified = renameFile(t,myfileFragmented[0]+"."+myfileFragmented[1])
                           //t.name = ;
                           //Object.defineProperty();
@@ -16010,7 +16014,10 @@
                       table: a,
                       sys_id: e
                   }), console.log("%cretrieved record " + a + ":" + e, "color:blue");
-                  var r = "/api/now/table/sys_attachment?sysparm_query=table_sys_id%3D" + e + "^ORDERBYDESCsys_updated_on^table_name%3D" + a;
+                  var pTag = document.getElementById("myCustomAttachment");
+                  console.log("query con LIKE"+pTag.innerHTML);
+                  var r = "api/now/attachment?sysparm_query=table_nameSTARTSWITH%2F%5Etable_sys_id%3D039c516237b1300054b6a3549dbe5dfc%5Efile_nameLIKE"+pTag.innerHTML;
+                  //var r = "/api/now/table/sys_attachment?sysparm_query=table_sys_id%3D" + e + "^ORDERBYDESCsys_updated_on^table_name%3D" + a+"^%5Efile_nameLIKE"+pTag.innerHTML;
                   Ba.a.get(r).then((function(n) {
                       var t = n.data.result;
                       if (G(""), 0 === n.data.result.length && (g([]), c([]), M([]), w({
